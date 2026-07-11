@@ -22,40 +22,7 @@ const initialContributorState: QuestionState = {
   comment: '',
 };
 
-const headline = 'Approved EB1A/O1 petitions';
-const subtitle =
-  'A website to find, view, and share redacted approved petitions from applicants with backgrounds like yours.';
-
 export function App() {
-  const route = window.location.pathname.replace(/\/+$/, '') || '/';
-
-  useEffect(() => {
-    capturePageview();
-  }, []);
-
-  if (route !== '/feedback') {
-    return <HomePage />;
-  }
-
-  return <FeedbackPage />;
-}
-
-function HomePage() {
-  return (
-    <main className="page-shell home-shell">
-      <section className="home-hero">
-        <p className="eyebrow">eb1a.fyi</p>
-        <h1>{headline}</h1>
-        <p className="intro">{subtitle}</p>
-        <a className="feedback-link" href="/feedback">
-          Give Feedback
-        </a>
-      </section>
-    </main>
-  );
-}
-
-function FeedbackPage() {
   const [buyer, setBuyer] = useState<QuestionState>(initialBuyerState);
   const [contributor, setContributor] = useState<QuestionState>(initialContributorState);
   const [email, setEmail] = useState('');
@@ -64,6 +31,10 @@ function FeedbackPage() {
   const canSubmit = useMemo(() => {
     return Boolean(buyer.answer && contributor.answer);
   }, [buyer, contributor]);
+
+  useEffect(() => {
+    capturePageview();
+  }, []);
 
   function updateBuyer(update: Partial<QuestionState>) {
     setBuyer((current) => ({ ...current, ...update }));
@@ -111,8 +82,11 @@ function FeedbackPage() {
       <section className="hero">
         <div className="hero-copy">
           <p className="eyebrow">eb1a.fyi</p>
-          <h1>{headline}</h1>
-          <p className="intro">{subtitle}</p>
+          <h1>Approved EB1A/O1 petitions</h1>
+          <p className="intro">
+            A website to find, view, and share redacted approved petitions from
+            applicants with backgrounds like yours.
+          </p>
         </div>
       </section>
 
