@@ -180,12 +180,12 @@ h2 {
 .choice-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
   margin-top: 24px;
-  padding: 4px;
-  border: 1px solid rgba(17, 24, 21, 0.08);
-  border-radius: 8px;
-  background: #eef2ef;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .choice,
@@ -202,8 +202,10 @@ h2 {
 }
 
 .choice {
+  border: 1px solid rgba(17, 24, 21, 0.1);
+  border-radius: 8px;
   color: #44514a;
-  background: transparent;
+  background: #eef2ef;
 }
 
 .choice:hover,
@@ -212,6 +214,7 @@ h2 {
 }
 
 .choice.selected {
+  border-color: #1b765e;
   color: #ffffff;
   background: #1b765e;
   box-shadow: 0 8px 18px rgba(27, 118, 94, 0.2);
@@ -255,6 +258,12 @@ h2 {
   color: #5c6962;
   font-size: 0.92rem;
   font-weight: 780;
+}
+
+.email-field small {
+  color: #87918c;
+  font-size: 0.82rem;
+  font-weight: 720;
 }
 
 .slider-field strong {

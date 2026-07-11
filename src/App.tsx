@@ -170,13 +170,13 @@ export function App() {
 
         <section className="submit-panel">
           <label className="email-field" htmlFor="email">
-            <span>Email for early access</span>
+            <span>Email for early access <small>(optional)</small></span>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="you@example.com"
+              placeholder="you@example.com - optional, leave blank for anonymous feedback"
               autoComplete="email"
             />
           </label>
