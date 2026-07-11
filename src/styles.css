@@ -29,6 +29,10 @@ textarea {
   font: inherit;
 }
 
+a {
+  color: inherit;
+}
+
 button {
   cursor: pointer;
 }
@@ -88,6 +92,41 @@ h1 {
   color: #56625c;
   font-size: clamp(1rem, 2vw, 1.16rem);
   line-height: 1.6;
+}
+
+.home-shell {
+  place-items: center;
+  padding: clamp(48px, 8vw, 88px) 0;
+}
+
+.home-hero {
+  display: grid;
+  justify-items: center;
+  width: min(100% - 20px, 980px);
+  text-align: center;
+}
+
+.feedback-link {
+  display: inline-grid;
+  place-items: center;
+  min-width: 172px;
+  min-height: 54px;
+  margin-top: 34px;
+  padding: 0 24px;
+  border-radius: 8px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #17201c, #1b765e);
+  box-shadow: 0 14px 28px rgba(27, 118, 94, 0.2);
+  font-weight: 820;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.feedback-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px rgba(27, 118, 94, 0.24);
 }
 
 .survey {
