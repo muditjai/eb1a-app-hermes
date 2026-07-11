@@ -17,6 +17,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     linear-gradient(120deg, rgba(247, 241, 232, 0.68), transparent 44%),
     linear-gradient(180deg, #fbfbf8 0%, #eef3f0 100%);
@@ -34,36 +35,33 @@ button {
 
 .page-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(390px, 520px);
-  gap: clamp(36px, 6vw, 92px);
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 36px);
   align-items: start;
-  width: min(1160px, calc(100vw - 48px));
+  width: min(760px, calc(100vw - 40px));
   min-height: 100vh;
   margin: 0 auto;
-  padding: clamp(30px, 5vw, 76px) 0;
+  padding: clamp(28px, 5vw, 58px) 0;
 }
 
 .hero {
-  position: sticky;
-  top: 44px;
-  min-height: calc(100vh - 120px);
-  display: flex;
-  align-items: center;
-}
-
-.hero-inner {
-  display: grid;
-  gap: clamp(30px, 5vw, 54px);
-  width: 100%;
+  display: block;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 .hero-copy {
-  max-width: 620px;
+  display: grid;
+  justify-items: center;
+  width: min(100% - 40px, 1100px);
+  max-width: none;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .eyebrow {
   width: fit-content;
-  margin: 0 0 22px;
+  margin: 0 auto 16px;
   color: #19624f;
   font-size: 0.79rem;
   font-weight: 800;
@@ -72,156 +70,30 @@ button {
 }
 
 h1 {
-  margin: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
   color: #111815;
-  font-size: clamp(3.1rem, 5.8vw, 6.15rem);
+  font-size: clamp(2.05rem, 4.8vw, 3.55rem);
   font-weight: 760;
-  line-height: 0.96;
+  line-height: 1.02;
   letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .intro {
-  max-width: 500px;
-  margin: 26px 0 0;
+  max-width: 900px;
+  margin: 18px auto 0;
   color: #56625c;
-  font-size: clamp(1.08rem, 1.55vw, 1.28rem);
-  line-height: 1.62;
-}
-
-.petition-visual {
-  position: relative;
-  width: min(520px, 100%);
-  min-height: 300px;
-  isolation: isolate;
-}
-
-.petition-backdrop {
-  position: absolute;
-  inset: 34px 12px 16px 72px;
-  border-radius: 8px;
-  background: #c7d8d0;
-  opacity: 0.34;
-  transform: rotate(-3deg);
-  z-index: -1;
-}
-
-.petition-sheet {
-  position: absolute;
-  border: 1px solid rgba(17, 24, 21, 0.1);
-  border-radius: 8px;
-  background: rgba(255, 255, 252, 0.94);
-  box-shadow: 0 26px 70px rgba(23, 32, 28, 0.13);
-}
-
-.sheet-primary {
-  inset: 34px 68px 0 28px;
-  padding: 24px;
-}
-
-.sheet-secondary {
-  inset: 0 22px 48px 118px;
-  padding: 22px;
-  transform: rotate(4deg);
-  background: rgba(247, 250, 248, 0.9);
-}
-
-.petition-label {
-  width: fit-content;
-  margin-bottom: 24px;
-  padding: 7px 10px;
-  border-radius: 999px;
-  color: #ffffff;
-  background: #1b765e;
-  font-size: 0.72rem;
-  font-weight: 850;
-}
-
-.sheet-header,
-.signature-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-}
-
-.sheet-header span,
-.signature-row span,
-.sheet-line,
-.sheet-title,
-.sheet-grid span {
-  display: block;
-  border-radius: 999px;
-  background: #dfe7e2;
-}
-
-.sheet-header span {
-  width: 72px;
-  height: 7px;
-}
-
-.sheet-title {
-  width: 68%;
-  height: 15px;
-  margin-bottom: 20px;
-  background: #2f4554;
-}
-
-.sheet-line {
-  height: 8px;
-  margin-top: 13px;
-}
-
-.sheet-line.long {
-  width: 94%;
-}
-
-.sheet-line.medium {
-  width: 70%;
-}
-
-.sheet-line.short {
-  width: 42%;
-}
-
-.redaction {
-  width: 84%;
-  height: 23px;
-  margin-top: 18px;
-  border-radius: 4px;
-  background: #17201c;
-}
-
-.redaction.wide {
-  width: 92%;
-  margin-top: 22px;
-}
-
-.sheet-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.sheet-grid span {
-  height: 30px;
-  border-radius: 6px;
-  background: #eef2ef;
-}
-
-.signature-row {
-  margin-top: 32px;
-}
-
-.signature-row span {
-  width: 35%;
-  height: 8px;
-  background: #b47a31;
+  font-size: clamp(1rem, 2vw, 1.16rem);
+  line-height: 1.6;
 }
 
 .survey {
   display: grid;
   gap: 16px;
-  padding-top: 4px;
+  padding-top: 0;
 }
 
 .survey-intro {
@@ -405,6 +277,7 @@ input[type='range'] {
   --slider-progress: 0%;
   width: 100%;
   height: 7px;
+  margin: 10px 0;
   border-radius: 999px;
   appearance: none;
   background:
@@ -510,35 +383,17 @@ input[type='email']:focus {
 
 @media (max-width: 920px) {
   .page-shell {
-    grid-template-columns: 1fr;
     gap: 28px;
     width: min(100% - 28px, 680px);
     padding: 28px 0 44px;
   }
 
-  .hero {
-    position: static;
-    min-height: auto;
-  }
-
   h1 {
-    font-size: clamp(2.85rem, 13vw, 4.9rem);
+    font-size: clamp(1.9rem, 9vw, 3.05rem);
   }
 
   .intro {
     margin-top: 18px;
-  }
-
-  .petition-visual {
-    min-height: 250px;
-  }
-
-  .sheet-primary {
-    inset: 26px 52px 0 18px;
-  }
-
-  .sheet-secondary {
-    inset: 0 18px 40px 92px;
   }
 }
 
@@ -558,21 +413,7 @@ input[type='email']:focus {
     gap: 4px;
   }
 
-  .petition-visual {
-    min-height: 214px;
-  }
-
-  .sheet-primary {
-    inset: 20px 28px 0 8px;
-    padding: 18px;
-  }
-
-  .sheet-secondary {
-    inset: 0 8px 34px 72px;
-    padding: 17px;
-  }
-
-  .petition-label {
-    margin-bottom: 18px;
+  h1 {
+    white-space: normal;
   }
 }

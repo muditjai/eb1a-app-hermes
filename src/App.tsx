@@ -12,13 +12,13 @@ interface QuestionState {
 
 const initialBuyerState: QuestionState = {
   answer: null,
-  amount: 500,
+  amount: 250,
   comment: '',
 };
 
 const initialContributorState: QuestionState = {
   answer: null,
-  amount: 500,
+  amount: 250,
   comment: '',
 };
 
@@ -80,17 +80,13 @@ export function App() {
   return (
     <main className="page-shell">
       <section className="hero">
-        <div className="hero-inner">
-          <div className="hero-copy">
-            <p className="eyebrow">eb1a.fyi</p>
-            <h1>Find and share proven EB1A and O1 petitions.</h1>
-            <p className="intro">
-              A focused marketplace for redacted approved petitions from applicants
-              with backgrounds like yours.
-            </p>
-          </div>
-
-          <PetitionVisual />
+        <div className="hero-copy">
+          <p className="eyebrow">eb1a.fyi</p>
+          <h1>Approved EB1A/O1 petitions</h1>
+          <p className="intro">
+            A website to find, view, and share redacted approved petitions from
+            applicants with backgrounds like yours.
+          </p>
         </div>
       </section>
 
@@ -196,41 +192,6 @@ export function App() {
         </section>
       </form>
     </main>
-  );
-}
-
-function PetitionVisual() {
-  return (
-    <div className="petition-visual" aria-hidden="true">
-      <div className="petition-backdrop" />
-      <div className="petition-sheet sheet-secondary">
-        <div className="sheet-header">
-          <span />
-          <span />
-        </div>
-        <div className="sheet-line long" />
-        <div className="sheet-line medium" />
-        <div className="redaction wide" />
-        <div className="sheet-grid">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-      <div className="petition-sheet sheet-primary">
-        <div className="petition-label">Approved petition</div>
-        <div className="sheet-title" />
-        <div className="sheet-line long" />
-        <div className="sheet-line short" />
-        <div className="redaction" />
-        <div className="sheet-line medium" />
-        <div className="signature-row">
-          <span />
-          <span />
-        </div>
-      </div>
-    </div>
   );
 }
 

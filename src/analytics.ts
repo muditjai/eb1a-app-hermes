@@ -1,6 +1,8 @@
 import posthog from 'posthog-js';
 
-const posthogKey = import.meta.env.VITE_POSTHOG_KEY;
+const posthogKey =
+  import.meta.env.VITE_POSTHOG_KEY ||
+  'phc_Bp5zE3zbSLgygDSv5fWi4BDvLx38xoq826R5pQptFDn8';
 const posthogHost = import.meta.env.VITE_POSTHOG_HOST || 'https://us.i.posthog.com';
 
 export const analyticsEnabled = Boolean(posthogKey);
