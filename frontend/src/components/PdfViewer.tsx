@@ -25,7 +25,7 @@ export function PdfViewer({
     <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
       <div className="space-y-5">
         {pages.map((page) => (
-          <Card key={page} className="mx-auto aspect-[3/4] min-h-[840px] max-w-5xl overflow-hidden p-14">
+          <Card key={page} className="mx-auto aspect-[3/4] min-h-[840px] max-w-5xl overflow-hidden bg-white/95 p-14 text-slate-950">
             <p className="mb-8 text-sm font-semibold text-slate-500">Page {page} of {petition.totalPages}</p>
             <div className="space-y-4">
               <div className="h-4 w-2/3 rounded bg-slate-300" />
@@ -38,8 +38,8 @@ export function PdfViewer({
           </Card>
         ))}
       </div>
-      <aside className="sticky top-6 h-fit rounded-[2rem] bg-slate-950 p-6 text-white shadow-soft">
-        <p className="text-sm text-slate-300">Viewing access</p>
+      <aside className="sticky top-6 h-fit rounded-[2rem] border border-white/10 bg-white/10 p-6 text-white shadow-soft backdrop-blur">
+        <p className="text-sm text-blue-200">Viewing access</p>
         <h2 className="mt-2 text-2xl font-bold">{petition.title}</h2>
         <p className="mt-3 text-slate-300">You can view {access.allowedPages} page{access.allowedPages === 1 ? "" : "s"} now.</p>
         {access.paywall && <Button className="mt-5 w-full bg-white text-slate-950 hover:bg-slate-100" onClick={continueReading}>Continue reading</Button>}

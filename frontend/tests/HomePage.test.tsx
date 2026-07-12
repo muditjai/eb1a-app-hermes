@@ -25,6 +25,7 @@ describe("HomePage", () => {
     render(<HomePage searchPetitions={search} onOpenPetition={vi.fn()} />);
 
     expect(await screen.findByText("Research Scientist EB1A")).toBeInTheDocument();
+    expect(screen.getByRole("main")).toHaveClass("bg-[radial-gradient(circle_at_top_right,#dbeafe,transparent_32%),#020617]");
     expect(screen.getByLabelText(/search/i)).toBeInTheDocument();
     expect(screen.getByTestId("pdf-preview-viewport")).toHaveClass("min-h-[680px]");
     expect(screen.getByTestId("pdf-preview-blur")).toHaveClass("backdrop-blur-md");

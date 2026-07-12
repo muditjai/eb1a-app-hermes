@@ -41,11 +41,11 @@ export function UploadPage({ api }: { api: UploadApi }) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-10">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,#dbeafe,transparent_32%),#020617] px-6 py-10 text-white">
       <section className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[420px_1fr]">
-        <Card className="h-fit p-6">
+        <Card className="h-fit bg-white/95 p-6 text-slate-950">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">For creators</p>
-          <h1 className="mt-3 text-3xl font-black text-slate-950">Upload and redact an EB1A petition</h1>
+          <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950">Upload and redact an EB1A petition</h1>
           <form className="mt-6 space-y-4" onSubmit={upload}>
             <label className="block text-sm font-medium text-slate-700">Petition title<Input className="mt-1" value={title} onChange={(event) => setTitle(event.target.value)} required /></label>
             <label className="block text-sm font-medium text-slate-700">Job profile<Input className="mt-1" value={jobProfile} onChange={(event) => setJobProfile(event.target.value)} required /></label>
@@ -67,7 +67,7 @@ export function UploadPage({ api }: { api: UploadApi }) {
               {saved && <p className="rounded-2xl bg-emerald-50 p-4 text-sm font-medium text-emerald-700">Redactions saved. Review the PDF, then publish.</p>}
             </>
           ) : (
-            <Card className="grid min-h-[520px] place-items-center p-8 text-center text-slate-500">Upload a PDF to open the redaction workspace.</Card>
+            <Card className="grid min-h-[520px] place-items-center bg-white/95 p-8 text-center text-slate-500">Upload a PDF to open the redaction workspace.</Card>
           )}
         </div>
       </section>

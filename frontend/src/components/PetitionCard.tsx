@@ -6,7 +6,7 @@ import { Card } from "./ui/Card";
 
 export function PetitionCard({ petition, onOpen }: { petition: PetitionSummary; onOpen: (petition: PetitionSummary) => void }) {
   return (
-    <Card className="overflow-hidden transition hover:-translate-y-1 hover:border-slate-300">
+    <Card className="overflow-hidden bg-white/95 text-slate-950 transition hover:-translate-y-1 hover:border-blue-200">
       <div className="block w-full text-left">
         <div data-testid="pdf-preview-viewport" className="relative mx-auto mt-6 aspect-[3/4] min-h-[680px] w-[94%] max-w-[720px] overflow-hidden rounded-[2rem] border bg-slate-50 p-10">
           <div className="mb-5 flex items-center gap-2 text-slate-500">

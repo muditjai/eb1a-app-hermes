@@ -8,7 +8,7 @@ export function RedactionWorkspace({ boxes, setBoxes }: { boxes: RedactionBox[];
   }
 
   return (
-    <Card className="p-5">
+    <Card className="bg-white/95 p-5 text-slate-950">
       <div className="flex items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-slate-950">Redaction workspace</h2>
