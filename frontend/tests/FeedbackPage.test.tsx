@@ -7,6 +7,7 @@ describe("FeedbackPage", () => {
   it("collects buyer and contributor feedback from the GitHub feedback flow", async () => {
     render(<FeedbackPage />);
 
+    expect(screen.queryByRole("button", { name: /Back to petitions/i })).not.toBeInTheDocument();
     expect(screen.getByText(/60-second survey/i)).toBeInTheDocument();
     expect(screen.getByText(/Approved EB1A\/O1 petitions/i)).toBeInTheDocument();
 
@@ -14,7 +15,7 @@ describe("FeedbackPage", () => {
     expect(screen.getByLabelText(/How much would you pay/i)).toBeInTheDocument();
 
     await userEvent.click(screen.getAllByRole("button", { name: "No" })[1]);
-    await userEvent.type(screen.getByLabelText(/Any suggestions/i), "Need more founder examples");
+    await userEvent.type(screen.getAllByLabelText(/Any suggestions/i)[1], "Need more founder examples");
     await userEvent.click(screen.getByRole("button", { name: /Submit feedback/i }));
 
     expect(screen.getByRole("status")).toHaveTextContent(/Thanks/i);

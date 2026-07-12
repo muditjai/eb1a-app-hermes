@@ -41,11 +41,13 @@ export function UploadPage({ api }: { api: UploadApi }) {
   }
 
   return (
-    <main className="feedback-wide-shell">
-      <section className="feedback-hero">
-        <p className="feedback-eyebrow">For creators</p>
-        <h1 className="feedback-title">Upload and redact an EB1A petition</h1>
-        <p className="feedback-intro">Share a redacted petition safely by uploading the PDF, marking PII boxes, and publishing the preview.</p>
+    <main className="wide-shell">
+      <section className="hero">
+        <div className="hero-copy">
+          <p className="eyebrow">For creators</p>
+          <h1>Upload and redact an EB1A petition</h1>
+          <p className="intro">Share a redacted petition safely by uploading the PDF, marking PII boxes, and publishing the preview.</p>
+        </div>
       </section>
 
       <section className="mt-10 grid gap-6 lg:grid-cols-[420px_1fr]">

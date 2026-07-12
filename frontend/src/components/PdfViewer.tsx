@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { PetitionSummary, ViewerAccess } from "../types";
 import { Button } from "./ui/Button";
-import { Card } from "./ui/Card";
 
 export function PdfViewer({
   petition,
@@ -22,42 +21,48 @@ export function PdfViewer({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
-      <div className="space-y-5">
-        {pages.map((page) => (
-          <Card key={page} className="mx-auto aspect-[3/4] min-h-[840px] max-w-5xl overflow-hidden p-14">
-            <p className="mb-8 text-sm font-[850] text-[#19624f]">Page {page} of {petition.totalPages}</p>
-            <div className="space-y-4">
-              <div className="h-4 w-2/3 rounded bg-[#cfd9d3]" />
-              <div className="h-4 rounded bg-[#dfe6e1]" />
-              <div className="h-4 w-5/6 rounded bg-[#dfe6e1]" />
-              <div className="h-56 rounded-[8px] bg-[#eef2ef]" />
-              <div className="h-4 rounded bg-[#dfe6e1]" />
-              <div className="h-4 w-1/2 rounded bg-[#dfe6e1]" />
-            </div>
-          </Card>
-        ))}
-      </div>
-      <aside className="sticky top-6 h-fit rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[rgba(255,255,252,0.86)] p-6 text-[#17201c] shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_22px_60px_rgba(28,36,31,0.08)] backdrop-blur-[14px]">
-        <p className="text-sm font-[850] text-[#19624f]">Viewing access</p>
-        <h2 className="mt-2 text-2xl font-[760] leading-tight">{petition.title}</h2>
-        <p className="mt-3 leading-7 text-[#56625c]">You can view {access.allowedPages} page{access.allowedPages === 1 ? "" : "s"} now.</p>
-        {access.paywall && <Button className="mt-5 w-full" onClick={continueReading}>Continue reading</Button>}
+    <section className="mx-auto grid w-full gap-6">
+      <header className="feedback-card mx-auto grid w-full max-w-[1180px] gap-4 p-5 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <p className="eyebrow !mx-0 !mb-2">Viewing access</p>
+          <h1 className="!m-0 !whitespace-normal !text-left !text-[clamp(1.6rem,3vw,2.4rem)]">{petition.title}</h1>
+          <p className="intro !mx-0 !mt-3 !text-left">You can view {access.allowedPages} page{access.allowedPages === 1 ? "" : "s"} now. Each page below loads the actual redacted sample PDF in an A4 viewport.</p>
+        </div>
+        {access.paywall && <Button onClick={continueReading}>Continue reading</Button>}
         {prompt === "login" && (
-          <div className="mt-5 rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[#eef2ef] p-4">
-            <h3 className="font-[760]">Log in to view 2 more pages</h3>
-            <p className="mt-2 text-sm leading-6 text-[#56625c]">Create a free reader account before the payment step.</p>
+          <div className="rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[#eef2ef] p-4 md:col-span-2">
+            <h2>Log in to view 2 more pages</h2>
+            <p className="intro !mx-0 !mt-2 !text-left !text-sm">Create a free reader account before the payment step.</p>
             <Button className="mt-4" onClick={onLogin}>Log in</Button>
           </div>
         )}
         {prompt === "payment" && (
-          <div className="mt-5 rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[#eef2ef] p-4">
-            <h3 className="font-[760]">Unlock the full petition</h3>
-            <p className="mt-2 text-sm leading-6 text-[#56625c]">Pay securely with Stripe to read every redacted page.</p>
+          <div className="rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[#eef2ef] p-4 md:col-span-2">
+            <h2>Unlock the full petition</h2>
+            <p className="intro !mx-0 !mt-2 !text-left !text-sm">Pay securely with Stripe to read every redacted page.</p>
             <Button className="mt-4" onClick={onPay}>Pay with Stripe</Button>
           </div>
         )}
-      </aside>
-    </div>
+      </header>
+
+      <div className="mx-auto grid w-full gap-8">
+        {pages.map((page) => (
+          <article key={page} className="mx-auto w-full max-w-[min(100vw-40px,1120px)]">
+            <p className="mb-3 text-center text-sm font-[850] text-[#19624f]">Page {page} of {petition.totalPages}</p>
+            <div data-testid="actual-pdf-page" className="feedback-card relative mx-auto aspect-[210/297] w-full overflow-hidden p-0">
+              <object
+                aria-label={`${petition.title} page ${page}`}
+                className="h-full w-full"
+                data={`${petition.pdfUrl}#page=${page}&toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                type="application/pdf"
+              >
+                <iframe title={`${petition.title} page ${page}`} className="h-full w-full" src={`${petition.pdfUrl}#page=${page}&toolbar=0&navpanes=0&scrollbar=0&view=FitH`} />
+              </object>
+              <div data-testid="pdf-page-blur" className="pointer-events-none absolute bottom-0 left-0 h-[70%] w-full bg-[rgba(255,255,252,0.52)] backdrop-blur-md" />
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }

@@ -14,16 +14,22 @@ function initialRoute(): AppRoute {
 }
 
 export function App() {
-  const [route, setRoute] = useState<AppRoute>(initialRoute);
+  const [route, setRouteState] = useState<AppRoute>(initialRoute);
   const [selected, setSelected] = useState<PetitionSummary | null>(null);
   const [access, setAccess] = useState<ViewerAccess>({ allowedPages: 1, paywall: "login" });
 
   const searchPetitions = useCallback((query: string) => apiClient.searchPetitions(query), []);
 
+  function setRoute(nextRoute: AppRoute) {
+    setRouteState(nextRoute);
+    const nextPath = nextRoute === "feedback" ? "/feedback" : "/";
+    window.history.pushState({}, "", nextPath);
+  }
+
   async function openPetition(petition: PetitionSummary) {
     setSelected(petition);
     setAccess(await apiClient.getAccess(petition.id));
-    setRoute("viewer");
+    setRouteState("viewer");
   }
 
   if (route === "upload") {
@@ -31,13 +37,13 @@ export function App() {
   }
 
   if (route === "feedback") {
-    return <FeedbackPage onBackHome={() => setRoute("home")} />;
+    return <FeedbackPage />;
   }
 
   if (route === "viewer" && selected) {
     return (
-      <main className="feedback-wide-shell">
-        <div className="mb-6 flex justify-between">
+      <main className="pdf-shell">
+        <div className="mx-auto flex w-full max-w-[1180px] justify-between gap-3 px-2">
           <Button onClick={() => setRoute("home")}>Back home</Button>
           <div className="flex gap-3">
             <Button onClick={() => setRoute("feedback")}>Give feedback</Button>

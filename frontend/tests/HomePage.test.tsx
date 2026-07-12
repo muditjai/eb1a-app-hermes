@@ -25,8 +25,7 @@ describe("HomePage", () => {
     render(<HomePage searchPetitions={search} onOpenPetition={vi.fn()} />);
 
     expect(await screen.findByText("Research Scientist EB1A")).toBeInTheDocument();
-    expect(screen.getByRole("main")).toHaveClass("feedback-wide-shell");
-    expect(screen.getByRole("heading", { name: /Learn from real redacted/i })).toHaveClass("feedback-title");
+    expect(screen.getByRole("main")).toHaveClass("wide-shell");
     expect(screen.getByLabelText(/search/i)).toBeInTheDocument();
     expect(screen.getByTestId("pdf-preview-viewport")).toHaveClass("min-h-[680px]");
     expect(screen.getByTestId("pdf-preview-blur")).toHaveClass("backdrop-blur-md");
