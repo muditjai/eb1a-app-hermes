@@ -10,6 +10,7 @@ const endpoints = [
   "POST /api/petitions/upload",
   "POST /api/petitions/:id/redactions",
   "POST /api/petitions/:id/publish",
+  "POST /api/feedback",
   "POST /api/auth/login",
   "GET /api/me",
   "POST /api/payments/create-checkout-session",

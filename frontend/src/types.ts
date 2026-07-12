@@ -39,3 +39,13 @@ export interface UploadPetitionInput {
   criteria: string;
   file: File;
 }
+
+export interface FeedbackSubmissionInput {
+  buyerInterest: "yes" | "no";
+  buyerPriceUsd: number | null;
+  buyerComment: string | null;
+  contributorInterest: "yes" | "no";
+  contributorCompensationUsd: number | null;
+  contributorComment: string | null;
+  email: string | null;
+}

@@ -2,8 +2,9 @@ import path from "node:path";
 import request from "supertest";
 import { describe, expect, it } from "vitest";
 import { createApp } from "../src/app";
+import { createMemoryAppStore } from "../src/repositories/app-store";
 
-const app = createApp({ stripeMode: "mock" });
+const app = createApp({ stripeMode: "mock", store: createMemoryAppStore() });
 
 describe("EB1A API", () => {
   it("reports health", async () => {
@@ -66,6 +67,28 @@ describe("EB1A API", () => {
     expect(checkout.body.data.url).toContain("stripe.mock");
   });
 
+  it("stores feedback form submissions", async () => {
+    const res = await request(app)
+      .post("/api/feedback")
+      .send({
+        buyerInterest: "yes",
+        buyerPriceUsd: 250,
+        buyerComment: null,
+        contributorInterest: "no",
+        contributorCompensationUsd: null,
+        contributorComment: "Need clearer redaction guarantees",
+        email: null
+      })
+      .expect(201);
+
+    expect(res.body.data).toMatchObject({
+      id: expect.stringContaining("feedback_"),
+      buyerInterest: "yes",
+      buyerPriceUsd: 250,
+      contributorInterest: "no"
+    });
+  });
+
   it("returns page access limits for anonymous and logged-in users", async () => {
     const anonymous = await request(app).get("/api/petitions/seed-founder/access").expect(200);
     expect(anonymous.body.data).toMatchObject({ allowedPages: 1, paywall: "login" });
@@ -76,5 +99,35 @@ describe("EB1A API", () => {
       .set("Authorization", `Bearer ${login.body.data.token}`)
       .expect(200);
     expect(authenticated.body.data).toMatchObject({ allowedPages: 3, paywall: "payment" });
+  });
+
+  it("records paid petition purchases from payment webhooks", async () => {
+    const login = await request(app).post("/api/auth/login").send({ email: "buyer@example.com" }).expect(200);
+    const token = login.body.data.token;
+
+    await request(app)
+      .post("/api/payments/webhook")
+      .send({
+        type: "checkout.session.completed",
+        data: {
+          object: {
+            id: "cs_mock_seed-founder",
+            metadata: { userToken: token, petitionId: "seed-founder" }
+          }
+        }
+      })
+      .expect(200);
+
+    const access = await request(app)
+      .get("/api/petitions/seed-founder/access")
+      .set("Authorization", `Bearer ${token}`)
+      .expect(200);
+    expect(access.body.data).toMatchObject({ allowedPages: 14, paywall: null });
+
+    const otherPetition = await request(app)
+      .get("/api/petitions/seed-research-scientist/access")
+      .set("Authorization", `Bearer ${token}`)
+      .expect(200);
+    expect(otherPetition.body.data).toMatchObject({ allowedPages: 3, paywall: "payment" });
   });
 });

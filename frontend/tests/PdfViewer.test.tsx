@@ -23,6 +23,7 @@ describe("PdfViewer", () => {
     render(<PdfViewer petition={petition} access={access} onLogin={vi.fn()} onPay={vi.fn()} />);
 
     expect(screen.getByTestId("actual-pdf-page")).toHaveClass("aspect-[210/297]");
+    expect(screen.getByTestId("actual-pdf-page").parentElement).toHaveClass("max-w-none");
     expect(screen.getByTestId("pdf-page-blur")).toHaveClass("h-[70%]");
 
     await userEvent.click(screen.getByRole("button", { name: /continue reading/i }));

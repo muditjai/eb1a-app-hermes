@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties, FormEvent, ReactNode } from "react";
 import { capture, capturePageview } from "../analytics";
+import { apiClient } from "../api/client";
+import type { FeedbackSubmissionInput } from "../types";
 
 type BinaryAnswer = "yes" | "no" | null;
 
@@ -22,11 +24,13 @@ const initialContributorState: QuestionState = {
   comment: ""
 };
 
-export function FeedbackPage() {
+export function FeedbackPage({ submitFeedback = apiClient.submitFeedback }: { submitFeedback?: (input: FeedbackSubmissionInput) => Promise<void> } = {}) {
   const [buyer, setBuyer] = useState<QuestionState>(initialBuyerState);
   const [contributor, setContributor] = useState<QuestionState>(initialContributorState);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const canSubmit = useMemo(() => Boolean(buyer.answer && contributor.answer), [buyer, contributor]);
 
@@ -53,30 +57,41 @@ export function FeedbackPage() {
     updateContributor({ answer });
   }
 
-  function submitSurvey(event: FormEvent<HTMLFormElement>) {
+  async function submitSurvey(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!canSubmit) {
+    if (!canSubmit || !buyer.answer || !contributor.answer) {
       return;
     }
 
-    const payload = {
-      buyer_interest: buyer.answer,
-      buyer_price_usd: buyer.answer === "yes" ? buyer.amount : null,
-      buyer_comment: buyer.answer === "no" ? buyer.comment.trim() : null,
-      contributor_interest: contributor.answer,
-      contributor_compensation_usd: contributor.answer === "yes" ? contributor.amount : null,
-      contributor_comment: contributor.answer === "no" ? contributor.comment.trim() : null,
+    const payload: FeedbackSubmissionInput = {
+      buyerInterest: buyer.answer,
+      buyerPriceUsd: buyer.answer === "yes" ? buyer.amount : null,
+      buyerComment: buyer.answer === "no" ? buyer.comment.trim() || null : null,
+      contributorInterest: contributor.answer,
+      contributorCompensationUsd: contributor.answer === "yes" ? contributor.amount : null,
+      contributorComment: contributor.answer === "no" ? contributor.comment.trim() || null : null,
       email: email.trim() || null
     };
 
-    capture("landing_survey_submitted", payload);
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      await submitFeedback(payload);
+      capture("landing_survey_submitted", { ...payload });
+      setSubmitted(true);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to submit feedback";
+      setSubmitError(message);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
-    <main className="page-shell">
-      <section className="hero">
+    <main className="feedback-shell">
+      <section className="feedback-hero">
         <div className="hero-copy">
           <p className="eyebrow">eb1a.fyi</p>
           <h1>Approved EB1A/O1 petitions</h1>
@@ -86,7 +101,7 @@ export function FeedbackPage() {
         </div>
       </section>
 
-      <form className="survey" onSubmit={submitSurvey}>
+      <form className="survey feedback-survey" onSubmit={submitSurvey}>
         <div className="survey-intro">
           <span>60-second survey</span>
           <p>Help shape the first version.</p>
@@ -164,11 +179,11 @@ export function FeedbackPage() {
           </label>
 
           <div className="actions">
-            <button className="submit-button" type="submit" disabled={!canSubmit}>
-              Submit feedback
+            <button className="submit-button" type="submit" disabled={!canSubmit || submitting}>
+              {submitting ? "Submitting..." : "Submit feedback"}
             </button>
-            <p className={submitted ? "status visible" : "status"} role="status">
-              Thanks. Your feedback was recorded.
+            <p className={submitted || submitError ? "status visible" : "status"} role="status">
+              {submitError || "Thanks. Your feedback was recorded."}
             </p>
           </div>
         </section>

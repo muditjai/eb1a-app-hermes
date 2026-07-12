@@ -21,7 +21,7 @@ function redaction(page, x, y, width, height, label = "REDACTED") {
   page.drawText(label, { x: x + 8, y: y + height / 2 - 4, size: 8, font: bold, color: rgb(1, 1, 1) });
 }
 
-const pages = [
+const pageTemplates = [
   {
     title: "Sample EB1A Petition — Research Scientist",
     subtitle: "Redacted public preview for eb1a.fyi",
@@ -53,6 +53,19 @@ const pages = [
     ]
   }
 ];
+
+const pages = Array.from({ length: 14 }, (_, index) => {
+  const template = pageTemplates[index % pageTemplates.length];
+  const sectionNumber = index + 1;
+  return {
+    ...template,
+    title: `${template.title} · Section ${sectionNumber}`,
+    bullets: [
+      ...template.bullets,
+      `Synthetic multi-page exhibit reference ${sectionNumber}`
+    ]
+  };
+});
 
 for (const [index, pageData] of pages.entries()) {
   const page = pdf.addPage([612, 792]);

@@ -125,6 +125,37 @@ Sample response
 { "data": { "id": "petition_123", "status": "published", "redactionCount": 1 } }
 ```
 
+### POST /api/feedback
+Sample request
+```http
+POST /api/feedback
+Content-Type: application/json
+
+{
+  "buyerInterest": "yes",
+  "buyerPriceUsd": 250,
+  "buyerComment": null,
+  "contributorInterest": "no",
+  "contributorCompensationUsd": null,
+  "contributorComment": "Need clearer redaction guarantees",
+  "email": null
+}
+```
+Sample response
+```json
+{
+  "data": {
+    "id": "feedback_123",
+    "buyerInterest": "yes",
+    "buyerPriceUsd": 250,
+    "contributorInterest": "no",
+    "contributorComment": "Need clearer redaction guarantees",
+    "email": null,
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  }
+}
+```
+
 ### POST /api/auth/login
 Sample request
 ```http
@@ -169,7 +200,7 @@ Sample request
 POST /api/payments/webhook
 Content-Type: application/json
 
-{ "type": "checkout.session.completed", "data": { "object": { "metadata": { "userToken": "user_cmVhZGVy" } } } }
+{ "type": "checkout.session.completed", "data": { "object": { "id": "cs_123", "metadata": { "userToken": "user_cmVhZGVy", "petitionId": "seed-founder" } } } }
 ```
 Sample response
 ```json

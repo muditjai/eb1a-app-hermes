@@ -4,10 +4,12 @@ import { PdfViewer } from "./components/PdfViewer";
 import { Button } from "./components/ui/Button";
 import { FeedbackPage } from "./pages/FeedbackPage";
 import { HomePage } from "./pages/HomePage";
+import { PlaceholderHomePage } from "./pages/PlaceholderHomePage";
 import { UploadPage } from "./pages/UploadPage";
 import type { PetitionSummary, ViewerAccess } from "./types";
 
 type AppRoute = "home" | "upload" | "viewer" | "feedback";
+const pdfLandingEnabled = import.meta.env.VITE_ENABLE_PDF_LANDING === "true";
 
 function initialRoute(): AppRoute {
   return window.location.pathname.startsWith("/feedback") ? "feedback" : "home";
@@ -53,6 +55,10 @@ export function App() {
         <PdfViewer petition={selected} access={access} onLogin={() => alert("Login modal placeholder")} onPay={() => alert("Stripe checkout placeholder")} />
       </main>
     );
+  }
+
+  if (!pdfLandingEnabled) {
+    return <PlaceholderHomePage onGiveFeedback={() => setRoute("feedback")} />;
   }
 
   return (

@@ -13,18 +13,30 @@
   -webkit-font-smoothing: antialiased;
 }
 
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
   background:
     linear-gradient(120deg, rgba(247, 241, 232, 0.68), transparent 44%),
     linear-gradient(180deg, #fbfbf8 0%, #eef3f0 100%);
+}
+
+#root {
+  display: grid;
+  width: 100%;
+  min-height: 100vh;
 }
 
 button,
@@ -48,6 +60,26 @@ button {
   padding: clamp(28px, 5vw, 58px) 0;
 }
 
+.feedback-shell {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 2vw, 22px);
+  align-items: start;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 58px) 0;
+}
+
+.feedback-hero {
+  width: 100%;
+}
+
+.feedback-survey {
+  width: min(clamp(760px, 46vw, 1120px), calc(100vw - 40px));
+  margin: 0 auto;
+}
+
 .wide-shell {
   display: grid;
   grid-template-columns: 1fr;
@@ -57,6 +89,18 @@ button {
   min-height: 100vh;
   margin: 0 auto;
   padding: clamp(28px, 5vw, 58px) 0;
+}
+
+.placeholder-shell {
+  display: grid;
+  justify-items: center;
+  place-content: center;
+  justify-self: center;
+  width: min(980px, calc(100vw - 40px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 88px) 0;
+  text-align: center;
 }
 
 .pdf-shell {
@@ -451,6 +495,10 @@ input[type='file']:focus {
   .intro {
     margin-top: 18px;
   }
+
+  .feedback-survey {
+    width: min(100% - 28px, 680px);
+  }
 }
 
 @media (max-width: 520px) {
@@ -469,6 +517,10 @@ input[type='file']:focus {
   .survey-intro {
     display: grid;
     gap: 4px;
+  }
+
+  .feedback-survey {
+    width: min(100% - 22px, 680px);
   }
 
   h1 {

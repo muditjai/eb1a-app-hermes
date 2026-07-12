@@ -27,6 +27,7 @@ describe("HomePage", () => {
     expect(await screen.findByText("Research Scientist EB1A")).toBeInTheDocument();
     expect(screen.getByRole("main")).toHaveClass("wide-shell");
     expect(screen.getByLabelText(/search/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/search/i).closest("label")).toHaveClass("max-w-6xl");
     expect(screen.getByTestId("pdf-preview-viewport")).toHaveClass("min-h-[680px]");
     expect(screen.getByTestId("pdf-preview-blur")).toHaveClass("backdrop-blur-md");
 

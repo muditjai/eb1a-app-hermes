@@ -31,6 +31,14 @@ npm run dev --workspace=@eb1a-fyi/backend
 npm run dev --workspace=@eb1a-fyi/frontend
 ```
 
+The backend uses in-memory storage by default. Set `MONGODB_URI` and
+`MONGODB_DB_NAME` to persist feedback submissions, users, and petition
+purchases in MongoDB.
+
+The frontend shows the placeholder landing page at `/` by default. Set
+`VITE_ENABLE_PDF_LANDING=true` in `frontend/.env` to iterate on the searchable
+PDF gallery landing page instead.
+
 ## Deployment
 
 Backend:

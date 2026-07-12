@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { FeedbackPage } from "../src/pages/FeedbackPage";
 
 describe("FeedbackPage", () => {
   it("collects buyer and contributor feedback from the GitHub feedback flow", async () => {
-    render(<FeedbackPage />);
+    const submitFeedback = vi.fn(async () => undefined);
+    render(<FeedbackPage submitFeedback={submitFeedback} />);
 
     expect(screen.queryByRole("button", { name: /Back to petitions/i })).not.toBeInTheDocument();
     expect(screen.getByText(/60-second survey/i)).toBeInTheDocument();
@@ -18,6 +19,12 @@ describe("FeedbackPage", () => {
     await userEvent.type(screen.getAllByLabelText(/Any suggestions/i)[1], "Need more founder examples");
     await userEvent.click(screen.getByRole("button", { name: /Submit feedback/i }));
 
-    expect(screen.getByRole("status")).toHaveTextContent(/Thanks/i);
+    expect(submitFeedback).toHaveBeenCalledWith(expect.objectContaining({
+      buyerInterest: "yes",
+      buyerPriceUsd: 250,
+      contributorInterest: "no",
+      contributorComment: "Need more founder examples"
+    }));
+    expect(await screen.findByText(/Thanks/i)).toBeInTheDocument();
   });
 });

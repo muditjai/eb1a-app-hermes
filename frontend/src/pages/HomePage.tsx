@@ -28,7 +28,7 @@ export function HomePage({
         </div>
       </section>
 
-      <label className="mx-auto mt-9 block max-w-3xl rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[rgba(255,255,252,0.86)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_22px_60px_rgba(28,36,31,0.08)] backdrop-blur-[14px]">
+      <label className="mx-auto mt-9 block w-full max-w-6xl rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[rgba(255,255,252,0.86)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_22px_60px_rgba(28,36,31,0.08)] backdrop-blur-[14px]">
         <span className="mb-3 flex items-center justify-center gap-2 text-sm font-[850] text-[#17201c]"><Search size={16} /> Search petitions</span>
         <Input aria-label="Search petitions" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Research scientist, Google, awards..." />
       </label>

@@ -47,7 +47,7 @@ export function PdfViewer({
 
       <div className="mx-auto grid w-full gap-8">
         {pages.map((page) => (
-          <article key={page} className="mx-auto w-full max-w-[min(100vw-40px,1120px)]">
+          <article key={page} className="mx-auto w-full max-w-none">
             <p className="mb-3 text-center text-sm font-[850] text-[#19624f]">Page {page} of {petition.totalPages}</p>
             <div data-testid="actual-pdf-page" className="feedback-card relative mx-auto aspect-[210/297] w-full overflow-hidden p-0">
               <object

@@ -1,4 +1,4 @@
-import type { PageRedactions, PetitionSummary, UploadPetitionInput, ViewerAccess } from "../types";
+import type { FeedbackSubmissionInput, PageRedactions, PetitionSummary, UploadPetitionInput, ViewerAccess } from "../types";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
 
@@ -42,5 +42,9 @@ export const apiClient = {
 
   async publishPetition(id: string): Promise<void> {
     await json(`/api/petitions/${id}/publish`, { method: "POST" });
+  },
+
+  async submitFeedback(input: FeedbackSubmissionInput): Promise<void> {
+    await json("/api/feedback", { method: "POST", body: JSON.stringify(input) });
   }
 };

@@ -58,3 +58,40 @@ export interface PetitionSummary {
   redactionCount: number;
   pdfUrl: string;
 }
+
+export type BinarySurveyAnswer = "yes" | "no";
+
+export interface FeedbackSubmissionInput {
+  buyerInterest: BinarySurveyAnswer;
+  buyerPriceUsd: number | null;
+  buyerComment: string | null;
+  contributorInterest: BinarySurveyAnswer;
+  contributorCompensationUsd: number | null;
+  contributorComment: string | null;
+  email: string | null;
+}
+
+export interface FeedbackSubmission extends FeedbackSubmissionInput {
+  id: string;
+  createdAt: string;
+}
+
+export interface UserAccount {
+  id: string;
+  email: string;
+  token: string;
+  paidPetitionIds: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PetitionPurchase {
+  id: string;
+  userId: string;
+  userToken: string;
+  petitionId: string;
+  checkoutSessionId?: string;
+  status: "paid";
+  createdAt: string;
+  updatedAt: string;
+}

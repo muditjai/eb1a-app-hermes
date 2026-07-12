@@ -1,34 +1,38 @@
+import type { AppStore } from "../repositories/app-store";
+
 export interface UserSession {
   id: string;
   email: string;
   paid: boolean;
+  paidPetitionIds: string[];
 }
 
-export function createAuthService() {
-  const sessions = new Map<string, UserSession>();
+export type LoginSession = UserSession & { token: string };
 
+function toSession(user: { id: string; email: string; paidPetitionIds: string[] }): UserSession {
   return {
-    login(email: string): UserSession & { token: string } {
-      const normalizedEmail = email.trim().toLowerCase();
-      const id = `user_${Buffer.from(normalizedEmail).toString("base64url")}`;
-      const token = id;
-      const existing = sessions.get(token);
-      const session = existing ?? { id, email: normalizedEmail, paid: false };
-      sessions.set(token, session);
-      return { ...session, token };
+    id: user.id,
+    email: user.email,
+    paid: user.paidPetitionIds.length > 0,
+    paidPetitionIds: user.paidPetitionIds
+  };
+}
+
+export function createAuthService(store: AppStore) {
+  return {
+    async login(email: string): Promise<LoginSession> {
+      const user = await store.upsertUserByEmail(email);
+      return { ...toSession(user), token: user.token };
     },
 
-    getSession(token?: string): UserSession | null {
-      if (!token) return null;
-      return sessions.get(token) ?? null;
+    async getSession(token?: string): Promise<UserSession | null> {
+      const user = await store.findUserByToken(token);
+      return user ? toSession(user) : null;
     },
 
-    markPaid(token: string): UserSession | null {
-      const session = sessions.get(token);
-      if (!session) return null;
-      const updated = { ...session, paid: true };
-      sessions.set(token, updated);
-      return updated;
+    async markPaid(token: string, petitionId: string, checkoutSessionId?: string): Promise<UserSession | null> {
+      const user = await store.markPetitionPurchased({ userToken: token, petitionId, checkoutSessionId });
+      return user ? toSession(user) : null;
     }
   };
 }
