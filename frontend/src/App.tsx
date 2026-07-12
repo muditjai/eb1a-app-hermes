@@ -36,17 +36,15 @@ export function App() {
 
   if (route === "viewer" && selected) {
     return (
-      <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,#dbeafe,transparent_32%),#020617] px-6 py-8 text-white">
-        <div className="mx-auto mb-6 flex max-w-6xl justify-between">
-          <Button className="bg-white text-slate-950 hover:bg-blue-50" onClick={() => setRoute("home")}>Back home</Button>
+      <main className="feedback-wide-shell">
+        <div className="mb-6 flex justify-between">
+          <Button onClick={() => setRoute("home")}>Back home</Button>
           <div className="flex gap-3">
-            <Button className="bg-white text-slate-950 hover:bg-blue-50" onClick={() => setRoute("feedback")}>Give feedback</Button>
-            <Button className="bg-white text-slate-950 hover:bg-blue-50" onClick={() => setRoute("upload")}>Share a petition</Button>
+            <Button onClick={() => setRoute("feedback")}>Give feedback</Button>
+            <Button onClick={() => setRoute("upload")}>Share a petition</Button>
           </div>
         </div>
-        <section className="mx-auto max-w-6xl">
-          <PdfViewer petition={selected} access={access} onLogin={() => alert("Login modal placeholder")} onPay={() => alert("Stripe checkout placeholder")} />
-        </section>
+        <PdfViewer petition={selected} access={access} onLogin={() => alert("Login modal placeholder")} onPay={() => alert("Stripe checkout placeholder")} />
       </main>
     );
   }
@@ -54,8 +52,8 @@ export function App() {
   return (
     <>
       <div className="fixed right-6 top-6 z-10 flex gap-3">
-        <Button className="bg-white text-slate-950 hover:bg-blue-50" onClick={() => setRoute("feedback")}>Give feedback</Button>
-        <Button className="bg-white text-slate-950 hover:bg-blue-50" onClick={() => setRoute("upload")}>Share a petition</Button>
+        <Button onClick={() => setRoute("feedback")}>Give feedback</Button>
+        <Button onClick={() => setRoute("upload")}>Share a petition</Button>
       </div>
       <HomePage searchPetitions={searchPetitions} onOpenPetition={openPetition} />
     </>

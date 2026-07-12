@@ -19,23 +19,21 @@ export function HomePage({
   }, [query, searchPetitions]);
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,#dbeafe,transparent_32%),#020617] px-6 py-10 text-white">
-      <section className="mx-auto max-w-[96rem]">
-        <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-200">eb1a.fyi</p>
-            <h1 className="mt-4 max-w-3xl text-5xl font-black tracking-tight text-white md:text-7xl">Learn from real redacted EB1A petitions.</h1>
-            <p className="mt-5 max-w-2xl text-xl leading-8 text-slate-300">Search by job profile, company, location, or USCIS criteria to find examples most relevant to your case.</p>
-          </div>
-          <label className="block rounded-[2rem] bg-white/95 p-4 text-slate-950 shadow-soft">
-            <span className="mb-2 flex items-center gap-2 px-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"><Search size={16} /> Search petitions</span>
-            <Input aria-label="Search petitions" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Research scientist, Google, awards..." />
-          </label>
-        </div>
-        <div className="mt-12 grid gap-10 xl:grid-cols-2">
-          {petitions.map((petition) => <PetitionCard key={petition.id} petition={petition} onOpen={onOpenPetition} />)}
-        </div>
+    <main className="feedback-wide-shell">
+      <section className="feedback-hero">
+        <p className="feedback-eyebrow">eb1a.fyi</p>
+        <h1 className="feedback-title">Learn from real redacted EB1A petitions.</h1>
+        <p className="feedback-intro">Search by job profile, company, location, or USCIS criteria to find examples most relevant to your case.</p>
       </section>
+
+      <label className="mx-auto mt-9 block max-w-3xl rounded-[8px] border border-[rgba(17,24,21,0.1)] bg-[rgba(255,255,252,0.86)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_22px_60px_rgba(28,36,31,0.08)] backdrop-blur-[14px]">
+        <span className="mb-3 flex items-center justify-center gap-2 text-sm font-[850] text-[#17201c]"><Search size={16} /> Search petitions</span>
+        <Input aria-label="Search petitions" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Research scientist, Google, awards..." />
+      </label>
+
+      <div className="mt-10 grid gap-6 xl:grid-cols-2">
+        {petitions.map((petition) => <PetitionCard key={petition.id} petition={petition} onOpen={onOpenPetition} />)}
+      </div>
     </main>
   );
 }

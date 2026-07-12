@@ -41,18 +41,22 @@ export function UploadPage({ api }: { api: UploadApi }) {
   }
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,#dbeafe,transparent_32%),#020617] px-6 py-10 text-white">
-      <section className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[420px_1fr]">
-        <Card className="h-fit bg-white/95 p-6 text-slate-950">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">For creators</p>
-          <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950">Upload and redact an EB1A petition</h1>
-          <form className="mt-6 space-y-4" onSubmit={upload}>
-            <label className="block text-sm font-medium text-slate-700">Petition title<Input className="mt-1" value={title} onChange={(event) => setTitle(event.target.value)} required /></label>
-            <label className="block text-sm font-medium text-slate-700">Job profile<Input className="mt-1" value={jobProfile} onChange={(event) => setJobProfile(event.target.value)} required /></label>
-            <label className="block text-sm font-medium text-slate-700">Company<Input className="mt-1" value={company} onChange={(event) => setCompany(event.target.value)} required /></label>
-            <label className="block text-sm font-medium text-slate-700">Location<Input className="mt-1" value={location} onChange={(event) => setLocation(event.target.value)} /></label>
-            <label className="block text-sm font-medium text-slate-700">Criteria names<Input className="mt-1" value={criteria} onChange={(event) => setCriteria(event.target.value)} placeholder="awards, original contribution" /></label>
-            <label className="block text-sm font-medium text-slate-700">PDF file<Input aria-label="PDF file" name="petitionPdf" className="mt-1" type="file" accept="application/pdf" onChange={(event) => setFile(event.target.files?.[0] ?? null)} /></label>
+    <main className="feedback-wide-shell">
+      <section className="feedback-hero">
+        <p className="feedback-eyebrow">For creators</p>
+        <h1 className="feedback-title">Upload and redact an EB1A petition</h1>
+        <p className="feedback-intro">Share a redacted petition safely by uploading the PDF, marking PII boxes, and publishing the preview.</p>
+      </section>
+
+      <section className="mt-10 grid gap-6 lg:grid-cols-[420px_1fr]">
+        <Card className="h-fit p-6">
+          <form className="space-y-4" onSubmit={upload}>
+            <label className="grid gap-2 text-sm font-[780] text-[#5c6962]">Petition title<Input value={title} onChange={(event) => setTitle(event.target.value)} required /></label>
+            <label className="grid gap-2 text-sm font-[780] text-[#5c6962]">Job profile<Input value={jobProfile} onChange={(event) => setJobProfile(event.target.value)} required /></label>
+            <label className="grid gap-2 text-sm font-[780] text-[#5c6962]">Company<Input value={company} onChange={(event) => setCompany(event.target.value)} required /></label>
+            <label className="grid gap-2 text-sm font-[780] text-[#5c6962]">Location<Input value={location} onChange={(event) => setLocation(event.target.value)} /></label>
+            <label className="grid gap-2 text-sm font-[780] text-[#5c6962]">Criteria names<Input value={criteria} onChange={(event) => setCriteria(event.target.value)} placeholder="awards, original contribution" /></label>
+            <label className="grid gap-2 text-sm font-[780] text-[#5c6962]">PDF file<Input aria-label="PDF file" name="petitionPdf" type="file" accept="application/pdf" onChange={(event) => setFile(event.target.files?.[0] ?? null)} /></label>
             <Button type="submit" className="w-full">Upload and redact</Button>
           </form>
         </Card>
@@ -62,12 +66,12 @@ export function UploadPage({ api }: { api: UploadApi }) {
               <RedactionWorkspace boxes={boxes} setBoxes={setBoxes} />
               <div className="flex flex-wrap gap-3">
                 <Button type="button" onClick={saveRedactions}>Save redactions</Button>
-                <Button type="button" className="bg-emerald-600 hover:bg-emerald-700" onClick={publish}>Publish</Button>
+                <Button type="button" onClick={publish}>Publish</Button>
               </div>
-              {saved && <p className="rounded-2xl bg-emerald-50 p-4 text-sm font-medium text-emerald-700">Redactions saved. Review the PDF, then publish.</p>}
+              {saved && <p className="rounded-[8px] border border-[rgba(27,118,94,0.18)] bg-[#edf6f2] p-4 text-sm font-[820] text-[#19624f]">Redactions saved. Review the PDF, then publish.</p>}
             </>
           ) : (
-            <Card className="grid min-h-[520px] place-items-center bg-white/95 p-8 text-center text-slate-500">Upload a PDF to open the redaction workspace.</Card>
+            <Card className="grid min-h-[520px] place-items-center p-8 text-center text-[#68746e]">Upload a PDF to open the redaction workspace.</Card>
           )}
         </div>
       </section>
