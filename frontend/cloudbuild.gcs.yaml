@@ -1,0 +1,14 @@
+steps:
+  - name: node:22
+    entrypoint: bash
+    args:
+      - -lc
+      - |
+        npm ci
+        npm run build --workspace=@eb1a-fyi/frontend
+        test -n "$GCS_BUCKET"
+        gsutil -m rsync -r -d frontend/dist "gs://$GCS_BUCKET"
+        gsutil -m setmeta -h "Cache-Control:public,max-age=31536000,immutable" "gs://$GCS_BUCKET/assets/**" || true
+        gsutil web set -m index.html -e index.html "gs://$GCS_BUCKET"
+substitutions:
+  _NOTE: "Set GCS_BUCKET to the static website bucket name."

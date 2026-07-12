@@ -1,0 +1,16 @@
+{
+  "name": "eb1a-app-hermes",
+  "version": "0.1.0",
+  "private": true,
+  "description": "eb1a.fyi - share redacted EB1A petitions",
+  "workspaces": ["backend", "frontend"],
+  "scripts": {
+    "generate:sample-pdf": "node scripts/generate-sample-redacted-pdf.mjs",
+    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

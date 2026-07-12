@@ -1,0 +1,10 @@
+node_modules
+coverage
+dist
+.env
+.env.*
+!.env.example
+backend/uploads
+backend/*.tsbuildinfo
+frontend/*.tsbuildinfo
+.DS_Store
