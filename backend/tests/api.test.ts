@@ -71,22 +71,26 @@ describe("EB1A API", () => {
     const res = await request(app)
       .post("/api/feedback")
       .send({
-        buyerInterest: "yes",
+        buyerInterest: "no",
         buyerPriceUsd: 250,
-        buyerComment: null,
+        buyerComment: "  I need closer examples before paying  ",
         contributorInterest: "no",
-        contributorCompensationUsd: null,
+        contributorCompensationUsd: 50,
         contributorComment: "Need clearer redaction guarantees",
-        email: null
+        email: "READER@example.com"
       })
       .expect(201);
 
     expect(res.body.data).toMatchObject({
       id: expect.stringContaining("feedback_"),
-      buyerInterest: "yes",
-      buyerPriceUsd: 250,
-      contributorInterest: "no"
+      buyerInterest: "no",
+      buyerPriceUsd: null,
+      buyerComment: "I need closer examples before paying",
+      contributorInterest: "no",
+      contributorCompensationUsd: null,
+      email: "reader@example.com"
     });
+    expect(res.body.data).not.toHaveProperty("_id");
   });
 
   it("returns page access limits for anonymous and logged-in users", async () => {

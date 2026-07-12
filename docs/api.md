@@ -132,13 +132,13 @@ POST /api/feedback
 Content-Type: application/json
 
 {
-  "buyerInterest": "yes",
+  "buyerInterest": "no",
   "buyerPriceUsd": 250,
-  "buyerComment": null,
+  "buyerComment": "  I need closer examples before paying  ",
   "contributorInterest": "no",
-  "contributorCompensationUsd": null,
+  "contributorCompensationUsd": 50,
   "contributorComment": "Need clearer redaction guarantees",
-  "email": null
+  "email": "READER@example.com"
 }
 ```
 Sample response
@@ -146,15 +146,19 @@ Sample response
 {
   "data": {
     "id": "feedback_123",
-    "buyerInterest": "yes",
-    "buyerPriceUsd": 250,
+    "buyerInterest": "no",
+    "buyerPriceUsd": null,
+    "buyerComment": "I need closer examples before paying",
     "contributorInterest": "no",
+    "contributorCompensationUsd": null,
     "contributorComment": "Need clearer redaction guarantees",
-    "email": null,
+    "email": "reader@example.com",
     "createdAt": "2026-01-01T00:00:00.000Z"
   }
 }
 ```
+MongoDB persistence stores these documents in `feedback_submissions` within
+`eb1a_app_v2_dev` or `eb1a_app_v2_prod`, depending on environment.
 
 ### POST /api/auth/login
 Sample request
