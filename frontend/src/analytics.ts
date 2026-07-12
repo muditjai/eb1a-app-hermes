@@ -9,7 +9,16 @@ if (posthogKey) {
   posthog.init(posthogKey, {
     api_host: posthogHost,
     capture_pageview: false,
-    defaults: "2026-05-30"
+    defaults: "2026-05-30",
+    session_recording: {
+      maskAllInputs: false,
+      maskInputOptions: {
+        email: false,
+        password: true,
+        text: false,
+        textarea: false
+      }
+    }
   });
 }
 
