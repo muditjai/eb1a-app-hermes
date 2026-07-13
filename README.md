@@ -66,6 +66,6 @@ Frontend to GCS:
 
 ```bash
 export VITE_API_BASE_URL=https://eb1a-app-hermes-api-qy4ypwumaq-uc.a.run.app
-export GCS_BUCKET=your-eb1a-fyi-static-bucket
+export GCS_BUCKET=eb1a-app-v2-frontend
 bash frontend/deploy-gcs.sh
 ```

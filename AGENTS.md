@@ -94,10 +94,10 @@ Required production environment variables:
 
 ### Frontend on GCS
 
-Use `frontend/cloudbuild.gcs.yaml` or `frontend/deploy-gcs.sh`.
+Use `frontend/deploy-gcs.sh`.
 
 ```bash
-export GCS_BUCKET=your-eb1a-fyi-static-bucket
+export GCS_BUCKET=eb1a-app-v2-frontend
 bash frontend/deploy-gcs.sh
 ```
 
